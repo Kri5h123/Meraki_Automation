@@ -66,8 +66,8 @@ with open('AP_list.csv') as readCsv:
             conf_sw(row[10],row[11], row[12], row[0], row[13], row[14])
             print("Dashboard configured for " + row[0])
             #Configure Windows Radius servers
-			PwShell_cmd = 'Invoke-Command -ComputerName ' + row[15] + ' -ScriptBlock {New-NpsRadiusClient -Address ' + row[4] + ' -Name BM-' + row[0] + ' -SharedSecret ' + Keys.Radius_Key + ' }'
+	    PwShell_cmd = 'Invoke-Command -ComputerName ' + row[15] + ' -ScriptBlock {New-NpsRadiusClient -Address ' + row[4] + ' -Name BM-' + row[0] + ' -SharedSecret ' + Keys.Radius_Key + ' }'
             subprocess.run(['Powershell',PwShell_cmd])
             print("Radius configured for " + row[0])
             #Meraki rate limits 5 requests per sec
-		    time.sleep(1)
+	    time.sleep(1)
