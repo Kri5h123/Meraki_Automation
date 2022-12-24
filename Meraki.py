@@ -49,12 +49,12 @@ with open('AP_list.csv') as readCsv:
     for row in reader:
         try:
             #Add Meraki device to dashboard
-            dashboard.organizations.claimIntoOrganizationInventory(Keys.Organization_id,serials=[row[1]])
+            dashboard.organizations.claimIntoOrganizationInventory(Keys.organization_id,serials=[row[1]])
         except:
             print(f"The Serial No {row[1]} is already claimed")
         try:
             #Claim Meraki to Network
-            dashboard.networks.claimNetworkDevices(Keys.NW_id, serials=[row[1]])
+            dashboard.networks.claimNetworkDevices(Keys.nw_id, serials=[row[1]])
         except:
             print(f"The Serial No {row[1]} is already in network")
         finally:
@@ -66,7 +66,7 @@ with open('AP_list.csv') as readCsv:
             conf_sw(row[10],row[11], row[12], row[0], row[13], row[14])
             print("Dashboard configured for " + row[0])
             #Configure Windows Radius servers
-	    PwShell_cmd = 'Invoke-Command -ComputerName ' + row[15] + ' -ScriptBlock {New-NpsRadiusClient -Address ' + row[4] + ' -Name BM-' + row[0] + ' -SharedSecret ' + Keys.Radius_Key + ' }'
+	    PwShell_cmd = 'Invoke-Command -ComputerName ' + row[15] + ' -ScriptBlock {New-NpsRadiusClient -Address ' + row[4] + ' -Name BM-' + row[0] + ' -SharedSecret ' + Keys.radius_Key + ' }'
             subprocess.run(['Powershell',PwShell_cmd])
             print("Radius configured for " + row[0])
             #Meraki rate limits 5 requests per sec
